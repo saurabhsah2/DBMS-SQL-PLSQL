@@ -1,0 +1,48 @@
+All queries are executed in SQL Live Platform............
+
+/*ORA SQl to find last record in a table */
+ select *from hr.employees where employee_id = (select max(employee_id) from hr.employees);
+
+/*ORA SQL to find first record in a table */
+ select *from hr.employees where employee_id = (select min(employee_id) from hr.employees);
+
+/*ORA SQL toi find First 3 Rows in Table*/
+SELECT *
+FROM hr.employees
+FETCH FIRST 3 ROWS ONLY;
+
+/* ORA SQL to find nth row from last in oracle sql */
+select *from (SELECT *
+FROM hr.employees
+ORDER BY employee_id DESC
+FETCH FIRST 10 ROWS ONLY) order by employee_id asc FETCH FIRST 1 ROWS ONLY;
+
+/* ORA SQL to find nth row from first in oracle sql */
+select *from (select *from hr.employees fetch first 20 rows only) order by employee_id desc fetch first 1 rows only;
+
+/*ORA Sql to create table from another table with same structure*/
+create table newEmployee as select *from hr.employees;
+
+
+/*ORA SQL FOR - DDL (DATA DEFINITION LANGUAGE) */
+   /* Create table in ORA SQL */
+ create table student(stu_id number(10) primary key,stu_name varchar2(26),course_name varchar2(10));
+
+   /*ora sql to create index */
+ CREATE INDEX idx_student_name ON student(stu_name);
+ CREATE INDEX idx_name_course ON student(stu_name,course_name);
+
+   /*ora sql to create view */
+ CREATE VIEW employee_view as select employee_id,first_name,last_name ,salary from hr.employees where employee_id>=188;
+ create table employee_view_tab as select *from employee_view;
+
+   /*ORA sql to create a synonym */
+ create synonym emp for hr.employees;
+ select *from emp;
+
+  /*ORA sql to create a sequence */
+  create sequence seq1 increment by 1 start with 10 maxvalue 15 minvalue 10;
+  create sequence seq2 increment by 1 start with 10 maxvalue 15 minvalue 10 cycle nocache;
+  create sequence seq3 increment by 1 start with 10 maxvalue 15 minvalue 10 cycle cache 2;
+  create sequence seq4 increment by 1 start with 10 maxvalue 15 minvalue 10 cycle cache 4;
+  select seq4.nextval from dual;
