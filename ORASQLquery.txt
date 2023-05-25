@@ -177,6 +177,12 @@ DROP sequence seq1;
 */
  DROP synonym emp force;
 
+ /* Truncate */
+ --Truncate table [shema].tableName;
+   alter table product modify p_type varchar(20);
+   insert into product values(101,'banana','fruits',3);
+   select *from product;
+   truncate table product;
     
     
     
